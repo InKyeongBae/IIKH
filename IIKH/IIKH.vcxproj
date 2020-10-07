@@ -139,15 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="database.cpp" />
     <ClCompile Include="date.cpp" />
+    <ClCompile Include="greeter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="meal.cpp" />
     <ClCompile Include="plan.cpp" />
+    <ClCompile Include="recipe.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="database.h" />
     <ClInclude Include="date.h" />
+    <ClInclude Include="greeter.h" />
     <ClInclude Include="meal.h" />
     <ClInclude Include="plan.h" />
+    <ClInclude Include="recipe.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
