@@ -2,8 +2,8 @@
 객지프 팀 2
 |이름|맡은 역할|
 |---|---|
-|김승아|Plan/data save|
-|배인경|Date/data read|
+|김승아|Plan, data save|
+|배인경|Date, data read|
 |이주연|Greeter|
 
 # 진행중인 개발
