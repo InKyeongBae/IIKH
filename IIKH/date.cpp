@@ -1,6 +1,6 @@
 #include "date.h";
 
-void Date::set_date(int y, int m, int d, bool a, string g_name, int g_amt) {
+void Date::set_date(int y, int m, int d, string a, string g_name, int g_amt) {
     year = y;
     month = m;
     day = d;
@@ -20,16 +20,18 @@ void Date::show_date() {
     cout << year << "斥" << endl;
     cout << month << "岿" << endl;
     cout << day << "老" << endl;
-    cout << anniversary << "扁充老 咯何" << endl;
+    cout << anniversary << " 扁充老" << endl;
     print_map(grocery_list);
 }
 
+/*
 int main() {
-    Date d1(2020, 10, 07, 0, "货快(付府)", 5);
+    Date d1(2020, 10, 07, "", "货快(付府)", 5);
     d1.show_date();
-    Date d2(1010, 10, 03, 1, "采霸(付府)", 10);
+    Date d2(1010, 10, 03, "逛狼积老", "采霸(付府)", 10);
     d2.show_date();
     cout << "good";
-    d2.set_date(2018, 07, 06, 0, "汲帕", 20);
+    d2.set_date(2018, 07, 06, "", "汲帕", 20);
     d2.show_date();
 }
+*/
