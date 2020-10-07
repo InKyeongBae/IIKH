@@ -15,6 +15,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="date.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -24,19 +27,16 @@
     <ClCompile Include="plan.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="date.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="date.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="meal.h">
-      <Filter>소스 파일</Filter>
+      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="plan.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="date.h">
-      <Filter>소스 파일</Filter>
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

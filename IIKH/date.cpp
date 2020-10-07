@@ -29,7 +29,7 @@ int main() {
     d1.show_date();
     Date d2(1010, 10, 03, 1, "²É°Ô(¸¶¸®)", 10);
     d2.show_date();
-
+    cout << "good";
     d2.set_date(2018, 07, 06, 0, "¼³ÅÁ", 20);
     d2.show_date();
 }
