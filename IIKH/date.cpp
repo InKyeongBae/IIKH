@@ -1,9 +1,7 @@
 #include "date.h";
 
-void Date::set_date(int y, int m, int d, string a, string g_name, int g_amt) {
-    year = y;
-    month = m;
-    day = d;
+void Date::set_date(string d, string a, string g_name, int g_amt) {
+    full_date = d;
     anniversary = a;
     grocery_list.insert(make_pair(g_name, g_amt));
 }
@@ -17,21 +15,7 @@ void print_map(map<K, V>& m) {
 }
 
 void Date::show_date() {
-    cout << year << "斥" << endl;
-    cout << month << "岿" << endl;
-    cout << day << "老" << endl;
+    cout << full_date << " 8磊府 date" << endl;
     cout << anniversary << " 扁充老" << endl;
     print_map(grocery_list);
 }
-
-/*
-int main() {
-    Date d1(2020, 10, 07, "", "货快(付府)", 5);
-    d1.show_date();
-    Date d2(1010, 10, 03, "逛狼积老", "采霸(付府)", 10);
-    d2.show_date();
-    cout << "good";
-    d2.set_date(2018, 07, 06, "", "汲帕", 20);
-    d2.show_date();
-}
-*/

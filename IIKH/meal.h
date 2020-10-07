@@ -23,4 +23,4 @@ public:
 
 	void set_num_people(int n) { num_people = n; }
 	void set_ingrediants_list(); //recipe가 변경되면 자동으로 수행
-}
+};
