@@ -1,7 +1,12 @@
+#pragma once
+#include <iostream>
 #include <string>
-
-#include "meal.h"
+#include <set>
+#include <map>
+#include "recipe.h"
 using namespace std;
+
+
 class Plan
 {
 private:
@@ -48,5 +53,54 @@ public:
 	PlanDB(); 
 	//Destructor
 	//~PlanDB() { save(); };
+
+};
+
+
+class Meal
+{
+private:
+	set<string> recipes;
+	int num_people;
+	map<string, int> ingrediants_list;
+public:
+	//getter
+	set<string> get_recipes() { return recipes; }
+	int get_num_people() { return num_people; }
+	map<string, int> get_ingrediants_list() { return ingrediants_list; }
+	//setter
+	void set_reipes(set<string> rs) { recipes = rs; }
+	void add_recipe(string& r) { recipes.insert(r); }
+	void delete_recipe(string& r) { recipes.erase(r); }
+
+	void set_num_people(int n) { num_people = n; }
+	void set_ingrediants_list(); //recipe가 변경되면 자동으로 수행
+};
+
+
+
+class Date {
+
+private:
+	string full_date;
+	string anniversary = "";
+	map <string, int> grocery_list;
+
+public:
+
+	void set_date(string d, string a, string g_name, int g_amt);
+
+	string get_full_date() { return full_date; }
+	string get_anniversary() { return anniversary; }
+	//컴파일 확인용 함수
+	void show_date();
+
+	Date(string d, string a, string g_name, int g_amt) {
+		full_date = d;
+		anniversary = a;
+		grocery_list.insert(make_pair(g_name, g_amt));
+	};
+
+
 
 };

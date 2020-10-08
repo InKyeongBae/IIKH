@@ -1,4 +1,4 @@
-#include "date.h";
+#include "plan.h";
 
 void Date::set_date(string d, string a, string g_name, int g_amt) {
     full_date = d;
