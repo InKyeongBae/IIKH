@@ -1,50 +1,30 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
 #include <set>
 #include <map>
 #include "recipe.h"
 using namespace std;
 
 
-class Plan
-{
+
+class Plan {
 private:
-	string plan_name;
-	Meal breakfast;
-	Meal lunch;
-	Meal dinner;
+	std::vector<Date> dates;
+
 public:
-	//getter
-	Plan(string n, Meal b, Meal l, Meal d)
-	{
-		plan_name = n;
-		breakfast = b;
-		lunch = l;
-		dinner = d;
-	}
-	string get_name() { return plan_name; }
-	Meal get_breakfast() { return breakfast; }
-	Meal get_lunch() { return lunch; }
-	Meal get_dinner() { return dinner; }
-	//setter
-	void set_name(string n) { plan_name = n; }
-	void set_breakfast(Meal b) { breakfast = b; }
-	void set_lunch(Meal l) { lunch = l; }
-	void set_dinner(Meal d) { dinner = d; }
-	
-	void print();
+	Plan() {}
+	Plan(std::vector<Date> dates) { this->dates = dates; }
+	void set_dates(std::vector<Date> dates) { this->dates = dates; }
+	std::vector<Date>& get_dates() { return dates; }
 
-	void date_console() {
+	void print_plan();
+	void writePlanToFile(std::ostream& file);
+	void writePlanToFile(std::string filename);
 
-		cout << "!!!!! You choose [3] add plan !!!!!" << endl;
-		cout << "Please input each value, You must input date format like 'yyyy/mm/dd'" << endl << endl;
-		cout << "plan_name : "; string n; cin >> n;
-		cout << "date(8-digits_ex. 20201007) : "; string eight_date; cin >> eight_date;
-		cout << "meal_time(choose only breakfast/lunch/dinner) : ";
-
-	};
 };
+
 
 class PlanDB 
 {
@@ -80,27 +60,64 @@ public:
 
 
 class Date {
-
 private:
-	string full_date;
-	string anniversary = "";
-	map <string, int> grocery_list;
+	int year, month, day;
+	Meal breakfast, lunch, dinner;
 
 public:
-
-	void set_date(string d, string a, string g_name, int g_amt);
-
-	string get_full_date() { return full_date; }
-	string get_anniversary() { return anniversary; }
-	//컴파일 확인용 함수
-	void show_date();
-
-	Date(string d, string a, string g_name, int g_amt) {
-		full_date = d;
-		anniversary = a;
-		grocery_list.insert(make_pair(g_name, g_amt));
-	};
-
+	bool init(int year, int month, int day);
+	void set_breakfast(Meal breakfast) { this->breakfast = breakfast; }
+	void set_lunch(Meal lunch) { this->lunch = lunch; }
+	void set_dinner(Meal dinner) { this->dinner = dinner; }
+	int get_year() { return year; }
+	int get_month() { return month; }
+	int get_day() { return day; }
+	Meal& get_breakfast() { return breakfast; }
+	Meal& get_lunch() { return lunch; }
+	Meal& get_dinner() { return dinner; }
+	std::string to_string();
+};
 
 
+class Ingredient {
+private:
+	string name;
+	int amount;
+public:
+	string get_name() {
+		return name;
+	}
+	int get_amount() {
+		return amount;
+	}
+	void set_name(string name) {
+		this->name = name;
+	}
+	void set_amount(int amount) {
+		this->amount = amount;
+	}
+
+	/*
+	bool read_file(istream& in) {
+		 string token;
+
+		 if (in.peek() == '\n') {
+			 in.ignore();
+			 return false;
+		 }
+
+		 getline(in, name, ';');
+		 getline(in, token, ';');
+		 amount = stoi(token);
+
+		 return true;
+	 }
+	bool writeFile(ostream& out) {
+		 out << name << ';'
+			 << amount << ';';
+
+		 return true;
+	 }
+
+	*/
 };

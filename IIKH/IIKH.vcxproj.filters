@@ -30,27 +30,18 @@
     <ClCompile Include="recipe.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="database.cpp">
+    <ClCompile Include="greeter.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="greeter.cpp">
+    <ClCompile Include="planDB.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="date.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="meal.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="plan.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="recipe.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="database.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="greeter.h">

@@ -31,4 +31,14 @@ int main() {
 
 }
 */
-int main()
+
+#include <iostream>
+#include "greeter.h"
+using namespace::std;
+
+int main() {
+	Greeter a;
+	a.print_greeting();
+	
+	return 0;
+}
