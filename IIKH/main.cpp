@@ -37,8 +37,9 @@ int main() {
 using namespace::std;
 
 int main() {
+	Greeter::print_greeting();
 	Greeter a;
-	a.print_greeting();
+	a.select_option();
 	
 	return 0;
 }

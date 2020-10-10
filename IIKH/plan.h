@@ -9,19 +9,23 @@ using namespace std;
 
 
 
+
 class Plan {
 private:
-	std::vector<Date> dates;
+	vector<Date> dates;
+	RecipeDB& rdb;
 
 public:
 	Plan() {}
-	Plan(std::vector<Date> dates) { this->dates = dates; }
-	void set_dates(std::vector<Date> dates) { this->dates = dates; }
-	std::vector<Date>& get_dates() { return dates; }
+	Plan(vector<Date> dates) { this->dates = dates; }
+	void set_dates(vector<Date> dates) { this->dates = dates; }
+	vector<Date>& get_dates() { return dates; }
 
 	void print_plan();
-	void writePlanToFile(std::ostream& file);
-	void writePlanToFile(std::string filename);
+	void add_plan(Date& date);
+	void add_plan_form();
+	void writePlanToFile(ostream& file);
+	void writePlanToFile(string filename);
 
 };
 
@@ -37,24 +41,40 @@ public:
 };
 
 
-class Meal
-{
+class Meal {
 private:
-	set<string> recipes;
+	string meal_title;
+	vector<Recipe> menus;
 	int num_people;
-	map<string, int> ingrediants_list;
-public:
-	//getter
-	set<string> get_recipes() { return recipes; }
-	int get_num_people() { return num_people; }
-	map<string, int> get_ingrediants_list() { return ingrediants_list; }
-	//setter
-	void set_reipes(set<string> rs) { recipes = rs; }
-	void add_recipe(string& r) { recipes.insert(r); }
-	void delete_recipe(string& r) { recipes.erase(r); }
 
-	void set_num_people(int n) { num_people = n; }
-	void set_ingrediants_list(); //recipe가 변경되면 자동으로 수행
+public:
+	Meal(string meal_title, int num_people);
+
+	void add_menu(Recipe recipe);
+	//bool remove_menu(int id);
+	
+	void print_grocery_list(vector<Recipe> menus);
+
+	vector<Recipe> get_menus() {
+		return menus;
+	}
+	
+	string get_meal_title() {
+		return meal_title;
+	}
+
+	int get_num_people() {
+		return num_people;
+	}
+
+	void set_title(string meal_title) {
+		this->meal_title = meal_title;
+	}
+
+	void set_num_people(int num_people) {
+		this->num_people = num_people;
+	}
+
 };
 
 
@@ -62,20 +82,36 @@ public:
 class Date {
 private:
 	int year, month, day;
-	Meal breakfast, lunch, dinner;
+	string anniversary;
+	vector<Meal> meals;
+	//Meal breakfast, lunch, dinner;
 
 public:
-	bool init(int year, int month, int day);
-	void set_breakfast(Meal breakfast) { this->breakfast = breakfast; }
-	void set_lunch(Meal lunch) { this->lunch = lunch; }
-	void set_dinner(Meal dinner) { this->dinner = dinner; }
+	//bool init(int year, int month, int day);
+	Date() {}
+	Date(int year, int month, int day, string anniversary = "") {}
+
+	void add_meal(Meal meal);
+	void print_grocery_list(vector<Meal> meals);
+
+
 	int get_year() { return year; }
 	int get_month() { return month; }
 	int get_day() { return day; }
+	string get_anniversary() { return anniversary; }
+
+	vector<Meal> get_meals() { return meals; }
+
 	Meal& get_breakfast() { return breakfast; }
 	Meal& get_lunch() { return lunch; }
 	Meal& get_dinner() { return dinner; }
-	std::string to_string();
+
+	void set_breakfast(Meal breakfast) { this->breakfast = breakfast; }
+	void set_lunch(Meal lunch) { this->lunch = lunch; }
+	void set_dinner(Meal dinner) { this->dinner = dinner; }
+
+
+	string to_string();
 };
 
 
