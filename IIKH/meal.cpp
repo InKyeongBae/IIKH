@@ -1,5 +1,5 @@
 #include "plan.h"
-
+#include <map>
 Meal::Meal(string meal_title, int num_people) {
 	this->meal_title = meal_title;
 	this->num_people = num_people;
@@ -10,12 +10,12 @@ void Meal::add_menu(Recipe recipe) {
 	menus.push_back(recipe);
 }
 
-bool Meal::remove_menu(int id) {
-	for (int i = 0; i < menus.size(); i++) {
-		if (menus[i].getId() == id) {
-			menus.erase(menus.begin() + i);
-			return true;
+void Meal::adjust_ingredients(vector<Recipe> menus){
+	map<string, int>::iterator iter;
+	for (Recipe menu : menus) {
+		map<string, int> ingredients = menu.get_ingredients();
+		for (iter = ingredients.begin(); iter != ingredients.end(); iter++) {
+			iter->second *= num_people;
 		}
 	}
-	return false;
 }

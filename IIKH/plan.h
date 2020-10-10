@@ -48,12 +48,12 @@ private:
 	int num_people;
 
 public:
-	Meal(string meal_title, int num_people);
+	Meal(string meal_title = "", int num_people = 1);
 
 	void add_menu(Recipe recipe);
 	//bool remove_menu(int id);
-	
-	void print_grocery_list(vector<Recipe> menus);
+
+	void adjust_ingredients(vector<Recipe> menus);
 
 	vector<Recipe> get_menus() {
 		return menus;

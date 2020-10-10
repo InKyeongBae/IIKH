@@ -24,6 +24,18 @@ RecipeList::RecipeList(string file_name) {
 	recipeDB.close();
 }
 
+RecipeList* RecipeList::instance = nullptr;
+
+RecipeList* RecipeList::get_instance(string filename) {
+	if (instance == nullptr) {
+		instance = new RecipeList(filename);
+		return instance;
+	}
+	else {
+		return instance;
+	}
+}
+
 //textDB에서 parsing 후 recipe_list에 추가
 void RecipeList::add_recipelist(string read_recipe)
 {
@@ -92,6 +104,7 @@ void RecipeList::add_recipe() {//주어진 형식에 맞게 레시피내용받기 (구분자이용)
 void RecipeList::show_recipe() {
 	for (int i = 0; i < recipe_list.size(); i++)
 	{
+		cout << "RECIPE ID: " << i << '\n';
 		recipe_list[i].print_recipe();//recipe_list배열들 하나하나를 출력시켜줌
 	}
 }
@@ -139,6 +152,7 @@ void RecipeList::browse_recipe(string keyword) {
 		}
 	}
 }
+
 //recipe를 검색한뒤 선택한 함수에 대해 삭제
 void RecipeList::delete_recipe(int list_num) {
 	//recipe_list[list_num]을 지워줌

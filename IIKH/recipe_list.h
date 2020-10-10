@@ -30,4 +30,8 @@ public:
 	//recipe 삭제 메소드
 	void delete_recipe(int list_num);
 	void save_recipe();
+
+	vector<Recipe> get_recipe_list() {
+		return recipe_list;
+	}
 };

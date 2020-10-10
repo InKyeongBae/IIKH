@@ -22,7 +22,9 @@ public:
 
 	void add_plan(Date date);
 	void print_plan_list();
-	
+	void print_grocery_list();
+
+
 	vector<Date>& get_dates() { return plan_list; }
 
 	void add_plan(Date& date);

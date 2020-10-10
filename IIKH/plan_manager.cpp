@@ -41,6 +41,7 @@ void PlanManager::print_plan_list() {
 
 void PlanManager::add_plan(Date date) {
 	plan_list.push_back(date);
+	
 
 	ofstream plan_data_file(this->file_name, ios::app);
 	if (plan_data_file.is_open()) {
@@ -58,5 +59,15 @@ void PlanManager::add_plan(Date date) {
 	}
 	else {
 		cout << "Unable to open file";
+	}
+}
+
+void PlanManager::print_grocery_list() {
+	for (Date plan : plan_list) {
+		for (Meal meal : plan.get_meals) {
+			for (Recipe recipe : meal.get_menus) {
+
+			}
+		}
 	}
 }
