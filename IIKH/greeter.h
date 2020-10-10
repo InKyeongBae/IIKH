@@ -7,7 +7,6 @@ using namespace std;
 class Greeter {
 private:
 	int option_choice = 0;
-	string search_keyword = "";
 	
 
 public:

@@ -1,4 +1,5 @@
 #include "greeter.h"
+#include "recipe_list.h"
 
 
 void Greeter::print_greeting() { 
@@ -30,12 +31,14 @@ void Greeter::select_main_menu() {
 
 void Greeter::show_all_recipe() {
 	cout << "---------- List of Recipe ----------" << '\n';
-	// recipeDB에 있는 모든 recipe 출력하는 함수 소환
+	void show_recipe();
 }
 
 void Greeter::browse_recipe() {
+	string search_keyword;
 	cout << "Enter keywords to search for (ex. salmon, lemon) :";
 	cin >> search_keyword;
+	RecipeList::get_instance("RecipeDB.txt")->browse_recipe(search_keyword);
 	// recipe 객체 하나 생성해서 객체.browse_recipe(search_keyword);
 	cout << '\n' << '\n';
 
@@ -61,8 +64,38 @@ void Greeter::add_recipe() {
 void Greeter::show_all_plan() {
 	cout << "---------- List of Plan ----------" << '\n';
 	// Plan list에 있는 모든 plan 출력
-	PlanManager::get_instance("plan_data_")->print_plan_list();
+	PlanManager::get_instance("PlanDB.txt")->print_plan_list();
 }
+
+void Greeter::add_plan() {
+	string plan_date = "";
+	string anniversary = "";
+	vector<string> date;
+	stringstream ss(plan_date);
+	string temp;
+
+	cout << "Let's make plan" << '\n';
+	cout << "Enter date of plan (ex. 2020-04-26) : ";
+	cin >> plan_date;
+
+
+	if (plan_date.length == 0) {
+		Date one_plan();
+		cout << "Enter keywords to search for (ex. salmon, lemon) :";
+		cin
+	}
+
+	else {
+		cout << "Write anniversary annotation : ";
+		cin >> anniversary;
+		while (getline(ss, temp, '-')) {
+			date.push_back(temp);
+		}
+		Date plan(stoi(date.at(0)), stoi(date.at(1)), stoi(date.at(2)), anniversary);
+
+	}
+}
+
 
 void Greeter::action_option(int option_choice){
 	
@@ -79,42 +112,16 @@ void Greeter::action_option(int option_choice){
 	//Action Add_Recipe
 	else if (option_choice == 3) {
 		// 레시피 에드하는 메소드 호출, 필요한 인자 입력 받는거는 언니들한테 코드 받고나서 확인 고
-
+		add_recipe();
 	}
 
 	else if (option_choice == 4) {
-		
+		show_all_plan();
 	}
 
 	else if (option_choice == 5) {
 		// 애드 플랜 메소드 호출
-		string plan_date = "";
-		string anniversary = "";
-		vector<string> date;
-		stringstream ss(plan_date);
-		string temp;
-
-		cout << "Let's make plan" << '\n';
-		cout << "Enter date of plan (ex. 2020-04-26) : ";
-		cin >> plan_date;
-
-
-		if (plan_date.length == 0) {
-			Date one_plan();
-			
-		}
-
-		else {
-			cout << "Write anniversary annotation : ";
-			cin >> anniversary;
-			while (getline(ss, temp, '-')) {
-				date.push_back(temp);
-			}
-			Date plan(stoi(date.at(0)), stoi(date.at(1)), stoi(date.at(2)), anniversary);
-
-		}
-		
-
+		add_plan();
 	}
 
 	else {

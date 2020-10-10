@@ -31,7 +31,7 @@ void PlanManager::print_plan_list() {
 			}
 		}
 		else {
-			cout << "Yoe don't have any plan!" << '\n';
+			cout << "You don't have any plan!" << '\n';
 		}
 		plan_data_file.close();
 	}

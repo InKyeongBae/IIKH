@@ -31,7 +31,3 @@ void Date::add_meal(Meal meal) {
 	meals.push_back(meal);
 }
 
-string Date::toString() {
-	string dateStr = to_string(year) + "/" + to_string(month) + "/" + to_string(day);
-	return dateStr;
-}

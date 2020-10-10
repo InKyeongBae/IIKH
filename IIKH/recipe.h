@@ -18,24 +18,25 @@ private:
 public:
 	/* GET */
 	//get Recipe name
-	string get_name();
+	const string& get_name() const { return recipe_name; }
 	//get Recipe ingrediendts & amount
-	map< string, int> get_ingredients();
+	map< string, int> get_ingredients() const { return ingredients; }
 	//get Recipe time
-	int get_time();
+	int get_time() const { return time; }
 	//get Recipe description
-	string get_description();
+	string get_description() const { return description; }
 
 	/* SET */
 	//sets Recipe name
-	void set_name(string rn);
+	void set_name(string rn) { recipe_name = rn; }
 	//sets Recipe time
-	void set_time(int t);
+	void set_time(int t) { time = t; }
 	//sets Recipe description
-	void set_description(string d);
+	void set_description(string d) { description = d; }
 
 	/* Functions */
 	void print_recipe();
+	string toString();
 
 	//기본생성자
 	Recipe();

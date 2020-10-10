@@ -1,19 +1,22 @@
 #pragma once
 #include <string>
 #include <map>
-#include "Recipe.h"
 #include <vector>
-
+#include "recipe.h"
 using namespace std;
 
-class RecipeDB {
+class RecipeList {
 private:
+	static string file_name;
 	vector<Recipe> recipe_list;
-	int list_num;//recipe_list[]에서 몇번째인지 받는 변수
-
+	RecipeList(string file_name) {
+		this->file_name = file_name;
+	}
+	static RecipeList* instance;
 public:
 	//생성자
-	RecipeDB();
+	static RecipeList* get_instance(string file_name);
+	
 	//recipe를 모두 보여주는 메소드
 	void show_recipe();
 	//recipe를 검색하는 메소드
@@ -21,10 +24,10 @@ public:
 	//recipe add 메소드
 	void add_recipe();
 	//recipe를 recipe_list에 추가해주는 메소드
-	void add_recipelist(string recipe_name, map<string, int> ingredients, int time, string description);
+	void add_recipelist(string read_recipe);
 	//recipe 수정 메소드
 	void edit_recipe();//일단 보류
 	//recipe 삭제 메소드
 	void delete_recipe(int list_num);
-
+	void save_recipe();
 };
