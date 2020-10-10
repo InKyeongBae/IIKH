@@ -27,13 +27,13 @@ void Recipe::print_recipe() {
 
 string Recipe::toString()
 {
-	string recipe = recipe_name + '@';
+	string recipe = recipe_name + "@";
 	for (auto iter = ingredients.begin(); iter != ingredients.end(); iter++) {
 		recipe.append(iter->first + "#");
-		recipe.append(iter->second + "%");
+		recipe.append(to_string(iter->second) + "%");
 	}
-	recipe.append(time + "@");
+	recipe.append("@");
+	recipe.append(to_string(time) + "@");
 	recipe.append(description);
-
 	return recipe;
 }

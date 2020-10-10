@@ -3,41 +3,15 @@
 #include <sstream>
 #include <string>
 #include <map>
+#include <stdlib.h>
 #include <algorithm>
 #include "recipe.h"
 #include "recipe_list.h"
 
 using namespace std;
 
-RecipeList::RecipeList(string file_name) {
-	ifstream recipeDB;
-	recipeDB.open(file_name);
-	string read_recipe;// txt읽을 때 한줄씩 저장하는 변수
-	if (recipeDB.is_open()) {
-		while (!recipeDB.eof()) {
-			while (getline(recipeDB, read_recipe)) {
-				add_recipelist(read_recipe);
-			}
-		}
-	}
-	else cout << "Unable to open file";
-	recipeDB.close();
-}
-
-RecipeList* RecipeList::instance = nullptr;
-
-RecipeList* RecipeList::get_instance(string filename) {
-	if (instance == nullptr) {
-		instance = new RecipeList(filename);
-		return instance;
-	}
-	else {
-		return instance;
-	}
-}
-
 //textDB에서 parsing 후 recipe_list에 추가
-void RecipeList::add_recipelist(string read_recipe)
+void Recipe_list::add_recipelist(string read_recipe)
 {
 	stringstream ss(read_recipe);
 	string token;
@@ -79,29 +53,91 @@ void RecipeList::add_recipelist(string read_recipe)
 
 }
 
-
-
-//DB와 recipe_list에 새로운 recipe 저장
-void RecipeList::add_recipe() {//주어진 형식에 맞게 레시피내용받기 (구분자이용)
-   //입력을 차례대로 받아서 저장
-	ofstream recipeDB;
-	recipeDB.open(file_name, ios::app);
+Recipe_list::Recipe_list() {
+	ifstream recipeDB;
+	recipeDB.open("RecipeDB.txt");
+	string read_recipe;// txt읽을 때 한줄씩 저장하는 변수
 	if (recipeDB.is_open()) {
-		string new_recipe;
-		cout << "새로운 recipe를 입력해 주세요.\n" << "<recipe_name>@<ingrediant_name(용량)>#<ingrediant_data>%...@<time>@<description>" << endl;
-		getline(std::cin, new_recipe);//콘솔에서 받은 것 변수에 저장
-		add_recipelist(new_recipe);//recipe_list에 추가
-		recipeDB << new_recipe << endl;//파일에까지 저장
-
-		cout << "\n----------------------------\n" << "	success" << "\n----------------------------\n";
-		recipe_list.back().print_recipe();
+		while (!recipeDB.eof()) {
+			while (getline(recipeDB, read_recipe)) {
+				add_recipelist(read_recipe);
+			}
+		}
 	}
 	else cout << "Unable to open file";
 	recipeDB.close();
 }
 
+//DB와 recipe_list에 새로운 recipe 저장
+void Recipe_list::add_recipe() {//주어진 형식에 맞게 레시피내용받기 (구분자이용)
+   //입력을 차례대로 받아서 저장
+
+	string new_recipe;
+	string r_name, i_name, i_amount, time;
+	int num;
+
+	cout << " Recipe name : ";
+	cin >> r_name;
+	cout << endl;
+	cin.ignore(INT_MAX, '\n');
+	new_recipe.append(r_name);
+	new_recipe.append("@");
+
+	cout << " The number of ingredients used in this recipe : ";
+	cin >> num;
+	cout << endl;
+
+
+	for (int i = 0; i < num; i++) {
+
+		cout << " " << i + 1 << ")" << " Ingredient name. Input like following format-> \"ex)egg(개)\" : ";
+		cin >> i_name;
+
+		new_recipe.append(i_name);
+		new_recipe.append("#");
+
+		cout << "    Ingredient amount (Only Input Integer for amount) : ";
+		cin >> i_amount;
+		cout << endl;
+
+		new_recipe.append(i_amount);
+		new_recipe.append("%");
+	}
+	new_recipe.append("@");
+
+	cout << " Cooking Time Duration (Only Input Integer for minutes) : ";
+	cin >> time;
+	cout << endl;
+	new_recipe.append(time);
+	new_recipe.append("@");
+
+
+	cout << " Describe \"How to Cook?\"" << endl;
+	cout << " The number of Recipe description : ";
+	cin >> num;
+	string des;
+	for (int i = 1; i <= num; i++) {
+		cout << i << ")";
+		string s = std::to_string(i);
+		new_recipe.append(s);
+		new_recipe.append(". ");
+		cin.ignore();
+		getline(cin, des);
+		new_recipe.append(des);
+		if (i != num) {
+			new_recipe.append(" / ");
+		}
+	}
+	add_recipelist(new_recipe);//recipe_list에 추가
+
+	cout << "\n----------------------------\n" << "   success" << "\n----------------------------\n";
+	recipe_list.back().print_recipe();
+}
+
+
+
 //recipe_list출력
-void RecipeList::show_recipe() {
+void Recipe_list::show_recipe() {
 	for (int i = 0; i < recipe_list.size(); i++)
 	{
 		cout << "RECIPE ID: " << i << '\n';
@@ -110,7 +146,7 @@ void RecipeList::show_recipe() {
 }
 
 //검색하는 동작 구현 
-void RecipeList::browse_recipe(string keyword) {
+void Recipe_list::browse_recipe(string keyword) {
 	vector <int> result;//검색된 레시피 저장
 
 	cout << "\n----------------------------\n" << "Searching by recipe's name" << "\n----------------------------\n";
@@ -142,22 +178,105 @@ void RecipeList::browse_recipe(string keyword) {
 	//검색된 레시피중에 선택된 레시피 저장해놓기
 	if (result.size() == 0) { cout << "SORRY:(" << endl << "There is no recipe for that keyword."; }//검색된게 없을시
 	else {
-		int select; //차후 vector 로 변경하여 여러가지 레시피를 저장해놓을 수 있도록 기능 구현 가능
+		select_browse_menu();
+	}
+}
+
+void Recipe_list::select_browse_menu()
+{
+	int menu_num;
+	cout << "1. Select recipe" << '\n';
+	cout << "2. Browose again" << '\n';
+	cin >> menu_num;
+
+	int select;
+	if (menu_num == 1) {
 		cout << "Choose recipe ID: ";
 		cin >> select;//사용자가 입력한 숫자 select에 저장
-		if (recipe_list.size() < select) {
+		while (recipe_list.size() < select) {
 			cout << "Wrong number" << endl;
 			cout << "Choose recipe again :";
 			cin >> select;
 		}
+		// 수정 menu 출력 -> 수정
+		system("cls");
+		edit_recipe(select);
+	}
+	else if (menu_num == 2) {
+		string keyword;
+		cout << "Please write keyword.\n";
+		cin >> keyword;
+		system("cls");
+		browse_recipe(keyword);
+	}
+	else {
+		select_browse_menu();
 	}
 }
 
 //recipe를 검색한뒤 선택한 함수에 대해 삭제
-void RecipeList::delete_recipe(int list_num) {
+void Recipe_list::delete_recipe(int list_num) {
 	//recipe_list[list_num]을 지워줌
 	recipe_list.erase(recipe_list.begin() + list_num);
+}
 
+void Recipe_list::edit_recipe(int select)
+{
+	cout << "1. Set recipe name" << '\n';
+	cout << "2. Set recipe time" << '\n';
+	cout << "3. add a ingrediant" << '\n';
+	cout << "4. remove a ingrediant" << '\n';
+	cout << "5. edit a ingrediant" << '\n';
+	cout << "6. Set recipe description" << '\n';
+	cout << "7. No edit" << '\n' << '\n';
+
+	cout << "Select Option Number : ";
+	int option_choice;
+	cin >> option_choice;
+
+	cout << "\n\n" << endl;
+	switch (option_choice)
+	{
+	case 1:
+		recipe_list[select].set_name();
+		break;
+	case 2:
+		recipe_list[select].set_time();
+		break;
+	case 3:
+		recipe_list[select].add_ingrediant();
+		break;
+	case 4:
+		recipe_list[select].remove_ingrediant();
+		break;
+	case 5:
+		recipe_list[select].edit_ingrediant();
+		break;
+	case 6:
+		recipe_list[select].set_description();
+		break;
+	case 7:
+		break;
+	default:
+		cout << "Please select right number!";
+		system("cls");
+		edit_recipe(select);
+	}
+	if (select != 7) {
+		cout << "\n----------------------------\n" << "	success" << "\n----------------------------\n";
+		recipe_list[select].print_recipe();
+	}
+	cout << "\n\n" << "any more edit?[y/n]: " << endl;
+	string result;
+	cin >> result;
+	if (result == "y")
+		edit_recipe(select);
+	else
+		return; //greeter로 가게 합치삼
+}
+
+void Recipe_list::save_recipe()
+{
 	//RecipeDB.txt 내용 지우고 새로운 recipe_list를 넣어줌
 	ofstream recipeDB;
 	recipeDB.open("RecipeDB.txt");

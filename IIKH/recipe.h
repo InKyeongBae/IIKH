@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <string>
 #include <map>
 
@@ -26,13 +27,66 @@ public:
 	//get Recipe description
 	string get_description() const { return description; }
 
-	/* SET */
+	/*edit recipe*/
 	//sets Recipe name
-	void set_name(string rn) { recipe_name = rn; }
+	void set_name()
+	{
+		cout << "Enter recipe name: " << endl;
+		getchar();
+		getline(cin, recipe_name);
+	}
 	//sets Recipe time
-	void set_time(int t) { time = t; }
+	void set_time()
+	{
+		cout << "Enter recipe time(minute): " << endl;
+		cin >> time;
+	}
 	//sets Recipe description
-	void set_description(string d) { description = d; }
+	void set_description()
+	{
+		cout << "Enter recipe description: " << endl;
+		getchar();
+		getline(cin, description);
+	}
+	//sets Recipe ingrediant
+	void add_ingrediant()
+	{
+		string ing_name;
+		int ing_size;
+		cout << "Enter ingrediant name: " << endl;
+		getchar();
+		cin >> ing_name;
+		cout << "Enter ingrediant amount: " << endl;
+		cin >> ing_size;
+		ingredients.insert(make_pair(ing_name, ing_size));
+	}
+	void edit_ingrediant()
+	{
+		cout << "Enter ingrediant name: " << endl;
+		string key;
+		getchar();
+		cin >> key;
+		if (ingredients.find(key) == ingredients.end()) {
+			cout << "Enter correct ingrediant name" << endl;
+			this->remove_ingrediant();
+		}
+		else {
+			cout << "Enter ingrediant amount: " << endl;
+			cin >> ingredients.find(key)->second;
+		}
+	}
+	void remove_ingrediant()
+	{
+		cout << "Enter ingrediant name: " << endl;
+		string key;
+		getchar();
+		cin >> key;
+		if (!ingredients.erase(key)) {
+			cout << "Enter correct ingrediant name" << endl;
+			this->remove_ingrediant();
+		}
+	}
+
 
 	/* Functions */
 	void print_recipe();

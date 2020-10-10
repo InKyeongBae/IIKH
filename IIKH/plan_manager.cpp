@@ -66,7 +66,7 @@ void PlanManager::print_grocery_list() {
 	for (Date plan : plan_list) {
 		for (Meal meal : plan.get_meals) {
 			for (Recipe recipe : meal.get_menus) {
-
+				cout << "Menu : " << recipe.get_name <<""
 			}
 		}
 	}
