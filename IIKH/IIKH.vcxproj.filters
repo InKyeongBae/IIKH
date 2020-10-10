@@ -24,16 +24,16 @@
     <ClCompile Include="meal.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="plan.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="recipe.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="greeter.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="planDB.cpp">
+    <ClCompile Include="plan_manager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="recipe_list.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -45,6 +45,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="greeter.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="plan_manager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="recipe_list.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

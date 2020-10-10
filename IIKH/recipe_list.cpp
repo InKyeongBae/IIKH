@@ -6,12 +6,43 @@
 #include <stdlib.h>
 #include <algorithm>
 #include "recipe.h"
+#include "greeter.h"
 #include "recipe_list.h"
 
 using namespace std;
 
+RecipeList* RecipeList::instance = nullptr;
+
+RecipeList* RecipeList::get_instance(string filename) {
+	if (instance == nullptr) {
+		instance = new RecipeList(filename);
+		return instance;
+	}
+	else {
+		return instance;
+	}
+}
+RecipeList* RecipeList::get_instance() {
+	return instance;
+}
+
+RecipeList::RecipeList(string file_name) {
+	ifstream recipeDB;
+	recipeDB.open(file_name);
+	string read_recipe;// txt읽을 때 한줄씩 저장하는 변수
+	if (recipeDB.is_open()) {
+		while (!recipeDB.eof()) {
+			while (getline(recipeDB, read_recipe)) {
+				add_recipelist(read_recipe);
+			}
+		}
+	}
+	else cout << "Unable to open file";
+	recipeDB.close();
+}
+
 //textDB에서 parsing 후 recipe_list에 추가
-void Recipe_list::add_recipelist(string read_recipe)
+void RecipeList::add_recipelist(string read_recipe)
 {
 	stringstream ss(read_recipe);
 	string token;
@@ -53,23 +84,10 @@ void Recipe_list::add_recipelist(string read_recipe)
 
 }
 
-Recipe_list::Recipe_list() {
-	ifstream recipeDB;
-	recipeDB.open("RecipeDB.txt");
-	string read_recipe;// txt읽을 때 한줄씩 저장하는 변수
-	if (recipeDB.is_open()) {
-		while (!recipeDB.eof()) {
-			while (getline(recipeDB, read_recipe)) {
-				add_recipelist(read_recipe);
-			}
-		}
-	}
-	else cout << "Unable to open file";
-	recipeDB.close();
-}
+
 
 //DB와 recipe_list에 새로운 recipe 저장
-void Recipe_list::add_recipe() {//주어진 형식에 맞게 레시피내용받기 (구분자이용)
+void RecipeList::add_recipe() {//주어진 형식에 맞게 레시피내용받기 (구분자이용)
    //입력을 차례대로 받아서 저장
 
 	string new_recipe;
@@ -137,7 +155,7 @@ void Recipe_list::add_recipe() {//주어진 형식에 맞게 레시피내용받기 (구분자이용)
 
 
 //recipe_list출력
-void Recipe_list::show_recipe() {
+void RecipeList::show_recipe() {
 	for (int i = 0; i < recipe_list.size(); i++)
 	{
 		cout << "RECIPE ID: " << i << '\n';
@@ -146,7 +164,7 @@ void Recipe_list::show_recipe() {
 }
 
 //검색하는 동작 구현 
-void Recipe_list::browse_recipe(string keyword) {
+void RecipeList::browse_recipe(string keyword) {
 	vector <int> result;//검색된 레시피 저장
 
 	cout << "\n----------------------------\n" << "Searching by recipe's name" << "\n----------------------------\n";
@@ -177,50 +195,16 @@ void Recipe_list::browse_recipe(string keyword) {
 	cout << '\n';
 	//검색된 레시피중에 선택된 레시피 저장해놓기
 	if (result.size() == 0) { cout << "SORRY:(" << endl << "There is no recipe for that keyword."; }//검색된게 없을시
-	else {
-		select_browse_menu();
-	}
 }
 
-void Recipe_list::select_browse_menu()
-{
-	int menu_num;
-	cout << "1. Select recipe" << '\n';
-	cout << "2. Browose again" << '\n';
-	cin >> menu_num;
-
-	int select;
-	if (menu_num == 1) {
-		cout << "Choose recipe ID: ";
-		cin >> select;//사용자가 입력한 숫자 select에 저장
-		while (recipe_list.size() < select) {
-			cout << "Wrong number" << endl;
-			cout << "Choose recipe again :";
-			cin >> select;
-		}
-		// 수정 menu 출력 -> 수정
-		system("cls");
-		edit_recipe(select);
-	}
-	else if (menu_num == 2) {
-		string keyword;
-		cout << "Please write keyword.\n";
-		cin >> keyword;
-		system("cls");
-		browse_recipe(keyword);
-	}
-	else {
-		select_browse_menu();
-	}
-}
 
 //recipe를 검색한뒤 선택한 함수에 대해 삭제
-void Recipe_list::delete_recipe(int list_num) {
+void RecipeList::delete_recipe(int list_num) {
 	//recipe_list[list_num]을 지워줌
 	recipe_list.erase(recipe_list.begin() + list_num);
 }
 
-void Recipe_list::edit_recipe(int select)
+void RecipeList::edit_recipe(int select)
 {
 	cout << "1. Set recipe name" << '\n';
 	cout << "2. Set recipe time" << '\n';
@@ -275,7 +259,7 @@ void Recipe_list::edit_recipe(int select)
 		return; //greeter로 가게 합치삼
 }
 
-void Recipe_list::save_recipe()
+void RecipeList::save_recipe()
 {
 	//RecipeDB.txt 내용 지우고 새로운 recipe_list를 넣어줌
 	ofstream recipeDB;

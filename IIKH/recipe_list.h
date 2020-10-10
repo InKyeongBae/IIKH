@@ -5,12 +5,17 @@
 #include "recipe.h"
 using namespace std;
 
-class Recipe_list {
+class RecipeList {
 private:
+	static string file_name;
 	vector<Recipe> recipe_list;
+	RecipeList(string file_name);
+	static RecipeList* instance;
 public:
 	//생성자
-	Recipe_list();
+	//RecipeList();
+	static RecipeList* get_instance(string file_name);
+	static RecipeList* get_instance();
 	//recipe를 모두 보여주는 메소드
 	void show_recipe();
 	//recipe를 검색하여 recipe_list에서의 위치 반환
@@ -25,4 +30,8 @@ public:
 	//recipe 삭제 메소드
 	void delete_recipe(int list_num);
 	void save_recipe();
+
+	vector<Recipe> get_recipe_list() {
+		return recipe_list;
+	}
 };

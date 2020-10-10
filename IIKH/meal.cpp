@@ -11,10 +11,9 @@ void Meal::add_menu(Recipe recipe) {
 }
 
 void Meal::adjust_ingredients(vector<Recipe> menus){
-	map<string, int>::iterator iter;
 	for (Recipe menu : menus) {
 		map<string, int> ingredients = menu.get_ingredients();
-		for (iter = ingredients.begin(); iter != ingredients.end(); iter++) {
+		for (auto iter = ingredients.begin(); iter != ingredients.end(); iter++) {
 			iter->second *= num_people;
 		}
 	}

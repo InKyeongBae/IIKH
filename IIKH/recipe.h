@@ -21,7 +21,7 @@ public:
 	//get Recipe name
 	const string& get_name() const { return recipe_name; }
 	//get Recipe ingrediendts & amount
-	map< string, int> get_ingredients() const { return ingredients; }
+	map< string, int>& get_ingredients() { return ingredients; }
 	//get Recipe time
 	int get_time() const { return time; }
 	//get Recipe description

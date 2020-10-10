@@ -8,39 +8,6 @@
 using namespace std;
 
 
-
-
-class Plan {
-private:
-	vector<Date> dates;
-	RecipeDB& rdb;
-
-public:
-	Plan() {}
-	Plan(vector<Date> dates) { this->dates = dates; }
-	void set_dates(vector<Date> dates) { this->dates = dates; }
-	vector<Date>& get_dates() { return dates; }
-
-	void print_plan();
-	void add_plan(Date& date);
-	void add_plan_form();
-	void writePlanToFile(ostream& file);
-	void writePlanToFile(string filename);
-
-};
-
-
-class PlanDB 
-{
-public:
-	//Constructor
-	PlanDB(); 
-	//Destructor
-	//~PlanDB() { save(); };
-
-};
-
-
 class Meal {
 private:
 	string meal_title;
@@ -88,12 +55,10 @@ private:
 
 public:
 	//bool init(int year, int month, int day);
-	Date() {}
-	Date(int year, int month, int day, string anniversary = "") {}
+	Date();
+	Date(int year, int month, int day, string anniversary = "");
 
 	void add_meal(Meal meal);
-	void print_grocery_list(vector<Meal> meals);
-
 
 	int get_year() { return year; }
 	int get_month() { return month; }
@@ -102,16 +67,6 @@ public:
 
 	vector<Meal> get_meals() { return meals; }
 
-	Meal& get_breakfast() { return breakfast; }
-	Meal& get_lunch() { return lunch; }
-	Meal& get_dinner() { return dinner; }
-
-	void set_breakfast(Meal breakfast) { this->breakfast = breakfast; }
-	void set_lunch(Meal lunch) { this->lunch = lunch; }
-	void set_dinner(Meal dinner) { this->dinner = dinner; }
-
-
-	string to_string();
 };
 
 
