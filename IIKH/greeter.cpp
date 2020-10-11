@@ -22,11 +22,11 @@ void Greeter::show_all_recipe() {
 	RecipeList::get_instance()->show_recipe();
 }
 
-void Greeter::browse_recipe() {
+bool Greeter::browse_recipe() {
 	string search_keyword;
 	cout << "Enter keywords to search for (ex. salmon, lemon) :";
 	cin >> search_keyword;
-	RecipeList::get_instance()->browse_recipe(search_keyword);
+	return RecipeList::get_instance()->browse_recipe(search_keyword);
 	
 }
 
@@ -141,18 +141,29 @@ void Greeter::action_option(int option_choice){
 
 	//Action Browse_Recipe
 	else if (option_choice == 2) {
-		browse_recipe();	
+		bool flag = browse_recipe();
 		int select;
-		cout << "\n" << "\n";
+
 		cout << "---------- Option ----------" << "\n";
-		cout << "1. Select recipe" << '\n';
-		cout << "2. Browse again" << '\n';
-		cout << "3. Return to Main Menu" << "\n" << "\n";
+		cout << "1. Browse again" << '\n';
+		cout << "2. Return to Main Menu" << '\n';
+		if (flag) {
+			cout << "3. Edit recipe" << "\n" << "\n";
+		}
+	
+
+		cout << "\n" << "\n";
 
 		cout << "Select Option Number : ";
 		cin >> option_choice;
 
 		if (option_choice == 1) {
+			action_option(2);
+		}
+		else if (option_choice == 2) {
+			select_main_menu();
+		}
+		else if (option_choice == 3) {
 			cout << "Choose recipe ID: ";
 			cin >> select;//사용자가 입력한 숫자 select에 저장
 			while (RecipeList::get_instance()->get_recipe_list().size() < select) {
@@ -163,11 +174,6 @@ void Greeter::action_option(int option_choice){
 			// 수정 menu 출력 -> 수정
 			system("cls");
 			RecipeList::get_instance()->edit_recipe(select);
-		}
-		else if (option_choice == 2) {
-			action_option(2);
-		}
-		else if (option_choice == 3) {
 			select_main_menu();
 		}
 		else {

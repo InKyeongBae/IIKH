@@ -17,7 +17,7 @@ public:
 	void action_option(int option);	
 
 	void show_all_recipe();
-	void browse_recipe();
+	bool browse_recipe();
 	void add_recipe();
 	void show_all_plan();
 	void add_plan();

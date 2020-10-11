@@ -19,7 +19,7 @@ public:
 	//recipe를 모두 보여주는 메소드
 	void show_recipe();
 	//recipe를 검색하여 recipe_list에서의 위치 반환
-	void browse_recipe(string keyword);
+	bool browse_recipe(string keyword);
 	//recipe add 메소드
 	void add_recipe();
 	//recipe를 recipe_list에 추가해주는 메소드

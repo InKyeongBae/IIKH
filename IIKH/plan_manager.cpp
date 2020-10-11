@@ -1,5 +1,5 @@
 #include "plan_manager.h"
-#include <fstream>
+#include <algorithm>
 #include <map>
 
 using namespace std;
@@ -48,14 +48,17 @@ void PlanManager::add_plan(Date date) {
 }
 
 void PlanManager::print_grocery_list() {
+	//map<string, int> temp;
+	//map<string, int>::iterator it;
 	for (Date plan : plan_list) {
 		cout << "Date : " << plan.get_year() << '-' << plan.get_month() << '-' << plan.get_day()<<'\n';
 		for (Meal meal : plan.get_meals()) {
-			cout << "Having meal with " << meal.get_num_people()<<'\n';
+			cout << "Having meal with " << meal.get_num_people() << " people" << '\n';
 			for (Recipe recipe : meal.get_menus()) {
 				cout << "Menu : " << recipe.get_name() << '\n';
 				cout << "Grocery List : " << '\n';
 				for (auto iter = recipe.get_ingredients().begin(); iter != recipe.get_ingredients().end(); iter++) {
+					//it = find(iter, recipe.get_ingredients().end(),iter->first);
 					cout << "¢º " << iter->first << " : " << iter->second * meal.get_num_people() << endl;
 				}
 			}

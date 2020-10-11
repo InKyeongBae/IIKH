@@ -164,7 +164,7 @@ void RecipeList::show_recipe() {
 }
 
 //검색하는 동작 구현 
-void RecipeList::browse_recipe(string keyword) {
+bool RecipeList::browse_recipe(string keyword) {
 	vector <int> result;//검색된 레시피 저장
 
 	cout << "\n----------------------------\n" << "Searching by recipe's name" << "\n----------------------------\n";
@@ -194,7 +194,14 @@ void RecipeList::browse_recipe(string keyword) {
 	}
 	cout << '\n';
 	//검색된 레시피중에 선택된 레시피 저장해놓기
-	if (result.size() == 0) { cout << "SORRY:(" << endl << "There is no recipe for that keyword."; }//검색된게 없을시
+	if (result.size() == 0) { 
+		cout << "SORRY:(" << endl << "There is no recipe for that keyword.";
+		return false;
+	}//검색된게 없을시
+	else {
+		return true;
+	}
+	
 }
 
 
