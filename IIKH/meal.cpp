@@ -10,7 +10,7 @@ void Meal::add_menu(Recipe recipe) {
 	menus.push_back(recipe);
 }
 
-void Meal::adjust_ingredients(vector<Recipe> menus){
+void Meal::adjust_ingredients(vector<Recipe> menus) {
 	for (Recipe menu : menus) {
 		map<string, int> ingredients = menu.get_ingredients();
 		for (auto iter = ingredients.begin(); iter != ingredients.end(); iter++) {

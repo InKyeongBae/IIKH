@@ -94,16 +94,14 @@ void RecipeList::add_recipe() {//주어진 형식에 맞게 레시피내용받기 (구분자이용)
 	string r_name, i_name, i_amount, time;
 	int num;
 
-	cout << " Recipe name : ";
+	cout << "> Recipe name : ";
 	cin >> r_name;
-	cout << endl;
 	cin.ignore(INT_MAX, '\n');
 	new_recipe.append(r_name);
 	new_recipe.append("@");
 
-	cout << " The number of ingredients used in this recipe : ";
+	cout << "> The number of ingredients used in this recipe : ";
 	cin >> num;
-	cout << endl;
 
 
 	for (int i = 0; i < num; i++) {
@@ -123,15 +121,15 @@ void RecipeList::add_recipe() {//주어진 형식에 맞게 레시피내용받기 (구분자이용)
 	}
 	new_recipe.append("@");
 
-	cout << " Cooking Time Duration (Only Input Integer for minutes) : ";
+	cout << "> Cooking Time Duration (Only Input Integer for minutes) : ";
 	cin >> time;
 	cout << endl;
 	new_recipe.append(time);
 	new_recipe.append("@");
 
 
-	cout << " Describe \"How to Cook?\"" << endl;
-	cout << " The number of Recipe description : ";
+	cout << " Let's Describe \"How to Cook?\"" << endl;
+	cout << "> The number of Recipe description : ";
 	cin >> num;
 	string des;
 	for (int i = 1; i <= num; i++) {
@@ -148,8 +146,8 @@ void RecipeList::add_recipe() {//주어진 형식에 맞게 레시피내용받기 (구분자이용)
 	}
 	add_recipelist(new_recipe);//recipe_list에 추가
 
-	cout << "\n----------------------------\n" << "   success" << "\n----------------------------\n";
-	recipe_list.back().print_recipe();
+	cout << "\n----------------------------\n" << " Add Recipe Success" << "\n----------------------------\n\n\n";
+	//recipe_list.back().print_recipe();
 }
 
 
@@ -158,50 +156,49 @@ void RecipeList::add_recipe() {//주어진 형식에 맞게 레시피내용받기 (구분자이용)
 void RecipeList::show_recipe() {
 	for (int i = 0; i < recipe_list.size(); i++)
 	{
-		cout << "RECIPE ID: " << i << '\n';
+		cout << "\n[ RECIPE ID: " << i << " ]" << endl;
 		recipe_list[i].print_recipe();//recipe_list배열들 하나하나를 출력시켜줌
 	}
 }
+
+
 
 //검색하는 동작 구현 
 bool RecipeList::browse_recipe(string keyword) {
 	vector <int> result;//검색된 레시피 저장
 
-	cout << "\n----------------------------\n" << "Searching by recipe's name" << "\n----------------------------\n";
+	cout << "\n-----------------------------------\n" << "    Searching by recipe's name   " << "\n-----------------------------------\n";
 	for (int i = 0; i < recipe_list.size(); i++) {
 		if (recipe_list[i].get_name().find(keyword) != string::npos) {//find함수 통해 recipe_name에 keyword있는지 검색
-			cout << "RECIPE ID: " << i << '\n';
+			cout << "[ RECIPE ID: " << i << " ]" << endl;
 			recipe_list[i].print_recipe();//keyword들어있는 recipe 출력
 			result.push_back(i);//result에 검색된 순서대로 recipe 들어감
 		}
 	}
-	cout << "\n----------------------------\n" << "Searching by recipe's ingrediants" << "\n----------------------------\n";
+	cout << "\n-----------------------------------\n" << " Searching by recipe's ingrediants" << "\n-----------------------------------\n";
 	for (int i = 0; i < recipe_list.size(); i++) {
 		map<string, int> temp = recipe_list[i].get_ingredients();
 		for (auto iter = temp.begin(); iter != temp.end(); iter++) {//재료에 keyword있는지 검색
 			if (iter->first.find(keyword) != string::npos) {
 				if (find(result.begin(), result.end(), i) == result.end()) { //일치하는 원소가 없는 경우
-					cout << "RECIPE ID: " << i << '\n';
+					cout << "[ RECIPE ID: " << i << " ]" << endl;
 					recipe_list[i].print_recipe();
 					result.push_back(i);
 				}
-				else { //이미 이름으로 검색하여 출력된 경우
-					cout << "Recipe Name: " << recipe_list[i].get_name() << '\n';
-				}
-				cout << '\n';
+
 			}
 		}
 	}
 	cout << '\n';
 	//검색된 레시피중에 선택된 레시피 저장해놓기
-	if (result.size() == 0) { 
+	if (result.size() == 0) {
 		cout << "SORRY:(" << endl << "There is no recipe for that keyword.";
 		return false;
 	}//검색된게 없을시
 	else {
 		return true;
 	}
-	
+
 }
 
 
@@ -213,19 +210,21 @@ void RecipeList::delete_recipe(int list_num) {
 
 void RecipeList::edit_recipe(int select)
 {
-	cout << "1. Set recipe name" << '\n';
-	cout << "2. Set recipe time" << '\n';
-	cout << "3. add a ingrediant" << '\n';
-	cout << "4. remove a ingrediant" << '\n';
-	cout << "5. edit a ingrediant" << '\n';
-	cout << "6. Set recipe description" << '\n';
-	cout << "7. No edit" << '\n' << '\n';
+	cout << "--------- Edit Menu ---------" << "\n";
+	cout << "| 1. Set recipe name        |" << '\n';
+	cout << "| 2. Set recipe time        |" << '\n';
+	cout << "| 3. Add a ingredient       |" << '\n';
+	cout << "| 4. remove a ingredient    |" << '\n';
+	cout << "| 5. edit a ingredient      |" << '\n';
+	cout << "| 6. Set recipe description |" << '\n';
+	cout << "| 7. Delete Recipe          |" << '\n';
+	cout << "| 8. No Edit                |\n";
+	cout << "-----------------------------\n";
 
-	cout << "Select Option Number : ";
+	cout << "> Select Edit Number : ";
 	int option_choice;
 	cin >> option_choice;
-
-	cout << "\n\n" << endl;
+	cout << "\n" << endl;
 	switch (option_choice)
 	{
 	case 1:
@@ -235,35 +234,57 @@ void RecipeList::edit_recipe(int select)
 		recipe_list[select].set_time();
 		break;
 	case 3:
-		recipe_list[select].add_ingrediant();
+		recipe_list[select].add_ingredient();
 		break;
 	case 4:
-		recipe_list[select].remove_ingrediant();
+		recipe_list[select].remove_ingredient();
 		break;
 	case 5:
-		recipe_list[select].edit_ingrediant();
+		recipe_list[select].edit_ingredient();
 		break;
 	case 6:
 		recipe_list[select].set_description();
 		break;
 	case 7:
+		delete_recipe(select);
+		cout << "\n-----------------------------\n" << "  Delete Success" << "\n-----------------------------\n";
+		while (true) {
+			cout << "------ Option  Menu ------" << "\n";
+			cout << "| 1. Return Main Menu    |" << "\n";
+			cout << "--------------------------\n";
+			cout << "> Select Option Number : ";
+			cin >> option_choice;
+			if (option_choice == 1) {
+				system("cls");
+				return;
+			}
+			else {
+				cout << "You have to input \"1\" to continue\n\n";
+			}
+		}
+
+
+		break;
+	case 8:
 		break;
 	default:
 		cout << "Please select right number!";
-		system("cls");
 		edit_recipe(select);
 	}
-	if (select != 7) {
-		cout << "\n----------------------------\n" << "	success" << "\n----------------------------\n";
+
+	if (option_choice < 7) {
+		cout << "\n-----------------------------\n" << "	 Edit Success" << "\n-----------------------------\n";
 		recipe_list[select].print_recipe();
 	}
-	cout << "\n\n" << "any more edit?[y/n]: " << endl;
+
+	cout << "\n\n" << "=> any more edit?[y/n]: " << endl;
 	string result;
 	cin >> result;
 	if (result == "y")
 		edit_recipe(select);
 	else
-		return; //greeter로 가게 합치삼
+		system("cls");
+	return; //greeter로 가게 합치삼
 }
 
 void RecipeList::save_recipe()

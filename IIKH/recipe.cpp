@@ -25,6 +25,8 @@ void Recipe::print_recipe() {
 	cout << endl;
 }
 
+
+
 string Recipe::toString()
 {
 	string recipe = recipe_name + "@";
