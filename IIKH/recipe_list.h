@@ -25,10 +25,9 @@ public:
 	//recipe를 recipe_list에 추가해주는 메소드
 	void add_recipelist(string read_recipe);
 	//recipe 수정 메소드
-	void select_browse_menu();
 	void edit_recipe(int select);
 	//recipe 삭제 메소드
-	void delete_recipe(int list_num);
+	void delete_recipe(int select);
 	void save_recipe();
 
 	vector<Recipe> get_recipe_list() {

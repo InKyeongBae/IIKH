@@ -25,7 +25,7 @@ public:
 	vector<Recipe> get_menus() {
 		return menus;
 	}
-	
+
 	string get_meal_title() {
 		return meal_title;
 	}

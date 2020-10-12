@@ -31,62 +31,78 @@ public:
 	//sets Recipe name
 	void set_name()
 	{
-		cout << "Enter recipe name: " << endl;
+		cout << "> Enter edited_recipe name: ";
 		getchar();
 		getline(cin, recipe_name);
 	}
 	//sets Recipe time
 	void set_time()
 	{
-		cout << "Enter recipe time(minute): " << endl;
+		cout << "> Enter edited_recipe time(minute): ";
 		cin >> time;
 	}
 	//sets Recipe description
 	void set_description()
 	{
-		cout << "Enter recipe description: " << endl;
-		getchar();
-		getline(cin, description);
+		int num;
+		cout << "> The number of Recipe description : ";
+		cin >> num;
+		string des;
+		string new_recipe;
+		for (int i = 1; i <= num; i++) {
+			cout << i << ")";
+			string s = std::to_string(i);
+			new_recipe.append(s);
+			new_recipe.append(". ");
+			cin.ignore();
+			getline(cin, des);
+			new_recipe.append(des);
+			if (i != num) {
+				new_recipe.append(" / ");
+			}
+		}
+
+		description = new_recipe;
+
 	}
 	//sets Recipe ingrediant
-	void add_ingrediant()
+	void add_ingredient()
 	{
 		string ing_name;
 		int ing_size;
-		cout << "Enter ingrediant name: " << endl;
+		cout << "> Enter New ingredient name. Input like following format-> \"ex)egg(°³)\" : ";
 		getchar();
 		cin >> ing_name;
-		cout << "Enter ingrediant amount: " << endl;
+		cout << "> Enter New ingredient amount (Only Input Integer for amount) : ";
 		cin >> ing_size;
 		ingredients.insert(make_pair(ing_name, ing_size));
 	}
-	void edit_ingrediant()
+	void edit_ingredient()
 	{
-		cout << "Enter ingrediant name: " << endl;
+		cout << "> Enter ingredient name for edit amount : ";
 		string key;
 		getchar();
 		cin >> key;
 		if (ingredients.find(key) == ingredients.end()) {
-			cout << "Enter correct ingrediant name" << endl;
-			this->remove_ingrediant();
+			cout << "> Enter correct ingredient name : ";
+			this->remove_ingredient();
 		}
 		else {
-			cout << "Enter ingrediant amount: " << endl;
+			cout << "> Enter edited_ingredient amount : ";
 			cin >> ingredients.find(key)->second;
 		}
 	}
-	void remove_ingrediant()
+	void remove_ingredient()
 	{
-		cout << "Enter ingrediant name: " << endl;
+		cout << "> Enter ingredient name for remove ingredient : ";
 		string key;
 		getchar();
 		cin >> key;
 		if (!ingredients.erase(key)) {
-			cout << "Enter correct ingrediant name" << endl;
-			this->remove_ingrediant();
+			cout << "> Enter correct ingredient name";
+			this->remove_ingredient();
 		}
 	}
-
 
 	/* Functions */
 	void print_recipe();
