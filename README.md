@@ -1,5 +1,8 @@
 # IIKH C++ Project
+__All screen capture for each function of the SW system and more detail in__
+_team2_project1_IIKHreport.pdf_
 >2020-2 Object-Oriented-Programming class in CAU Team2
+
 
 ## Team Member
 |Name|Role|
@@ -43,6 +46,5 @@ file is used for database purposes.
 ## First Screen
 ![image](https://user-images.githubusercontent.com/65646971/104183046-b3797680-5454-11eb-90f3-c2c28d4c1f7d.png)
 
-<span style="color:Brown"> All screen capture for each function of the SW system and more detail in </span> 
-<span style="color: red"> team2_project1_IIKHreport.pdf </span>
+
 
