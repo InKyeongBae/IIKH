@@ -1,6 +1,7 @@
 # IIKH C++ Project
 __All screen capture for each function of the SW system and more detail in__
-_team2_project1_IIKHreport.pdf_
+
+*team2_project1_IIKHreport.pdf*
 >2020-2 Object-Oriented-Programming class in CAU Team2
 
 
